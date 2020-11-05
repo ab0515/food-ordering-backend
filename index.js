@@ -20,6 +20,7 @@ app.use(cors());
 
 app.use('/api/restaurant', require('./routes/restaurant'));
 app.use('/api/menu', require('./routes/menuItem'));
+app.use('/api/user', require('./routes/user'));
 
 app.listen(port, () => {
 	console.log(`Server running at ${port}`);
