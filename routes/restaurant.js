@@ -2,7 +2,9 @@ const express = require('express');
 const Restaurant = require('../models/Restaurant');
 const router = express.Router();
 
-router.post("/addRestaurant", (req, res) => {
+const { auth } = require('../middleware/auth');
+
+router.post("/addRestaurant", auth, (req, res) => {
 	const restaurant = new Restaurant(req.body);
 	restaurant.save()
 		.then(doc => {
@@ -15,9 +17,9 @@ router.post("/addRestaurant", (req, res) => {
 		});
 });
 
-router.get("/getAllRestaurants", (req, res) => {
+router.get("/getAllRestaurants", auth, (req, res) => {
 	// const data = await Restaurant.find();
-	Restaurant.find()
+	Restaurant.find().sort({ name: 1 })
 		.then(rest => {
 			return res.json({ success: true, rest });
 		})
